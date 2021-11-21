@@ -1,11 +1,9 @@
 const bcrypt = require('bcrypt');
-
 const jwt = require('jsonwebtoken');
-
 const passwordValidator = require('password-validator');
-
 const User = require('../models/user')
 
+//Schema passwordValidator:
 var schema = new passwordValidator();
 //Spécificités pr password:
 schema
@@ -44,7 +42,6 @@ exports.login = (req, res, next) => {
     //Trouver l'utilisateur via le mail enregistré:
     User.findOne({ email: req.body.email })
         .then((user) => {
-            //test user= false instead of !user:
             //si utilisateur inconnu:
             if (!user) {
                 return res.status(404).json({ error: 'Cet utilisateur est inconnu' });

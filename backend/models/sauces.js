@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-//const sanitizerPlugin = require('mongoose-sanitizer-plugin');
-
 const sauceSchema = mongoose.Schema({
     userId: { type: String, required: true },
     name: { type: String, required: true },
@@ -17,5 +15,4 @@ const sauceSchema = mongoose.Schema({
 });
 
 //sauceSchema.plugin(sanitizerPlugin);
-
 module.exports = mongoose.model('sauce', sauceSchema);

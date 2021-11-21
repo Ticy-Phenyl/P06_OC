@@ -14,8 +14,7 @@ const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 
 
-
-//Route pr créer une sauce:
+//Déclaration des routes pr créer une sauce:
 router.post('/', auth, multer, saucesCtrl.createSauce);
 //Route pr les likes/dislikes:
 router.post('/:id/like', auth, multer, saucesCtrl.likeSauce);

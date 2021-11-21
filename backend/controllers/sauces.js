@@ -1,16 +1,12 @@
-
-
 const Sauce = require('../models/sauces');
-
 const fs = require('fs');
 
 
 //Création d'une nouvelle sauce:
-
 exports.createSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
 
-    //Creation d'une sauce:
+    //Création d'une sauce:
     const sauce = new Sauce({
         ...sauceObject,
         //Modification url img pr l'avoir dynamique:
@@ -156,9 +152,6 @@ exports.likeSauce = (req, res, next) => {
                     _id: req.params.id,
                 }
             )
-
-
-
 
                 //Modifier  messages -------------------------
 

@@ -1,36 +1,24 @@
-const express = require('express'); //Framework basé sur Node.js
-
-
-
+const express = require('express'); //Express
 const mongoose = require('mongoose'); //Plugin pr se connecter à la database MongoDB
-
 const path = require('path'); //Plugin qui sert à l'upload des images
-
 const helmet = require('helmet'); //Module permettant de sécuriser les requêtes http, d'éviter de détourner les clics, etc
-
-//const nocache = require('nocache'); //Module empêchant la mise en cache
+require('dotenv').config(); //déclaration dotenv
 
 
 //Routes:
 //Route sauces:
 const saucesRoutes = require('./routes/sauces');
-
 //Route user:
 const userRoutes = require('./routes/user');
 
-
-//Module dotenv pr masquer les infos de connexion MongoDB:
-//require('dotenv').config();
-
-
-//Connexion à MongoDB en utilisant .env (masquer mdp):
-mongoose.connect("mongodb+srv://UserAlpha:Rand0mizeMe@cluster0.n5ira.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
+//Connexion à MongoDB en utilisant .env:
+mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.n5ira.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true,
 })
     .then(() => console.log('Réussite de la connexion à MongoDB'))
-    .catch(() => console.log('Echec de la connexion à MongoDB'))
-
+    .catch(() => console.log('Echec de la connexion à MongoDB'));
 
 //Création application Express:
 const app = express();
@@ -41,7 +29,7 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
-
+//CORS:
 app.use((req, res, next) => {
     //partage ressources depuis n'importe quelle origine:
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -51,8 +39,6 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
-
-
 
 //Helmet pr -------------------------:
 app.use(helmet());
@@ -66,7 +52,6 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
 //Route dédiée aux sauces:
 app.use('/api/sauces', saucesRoutes);
-
 
 //Export application Express pr utilisation dans server.js:
 module.exports = app;

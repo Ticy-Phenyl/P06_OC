@@ -1,5 +1,4 @@
 //Création route pour la partie user:
-
 //Appel d'Express:
 const express = require('express');
 
@@ -7,7 +6,7 @@ const express = require('express');
 const router = express.Router();
 
 //Importation bouncer pr éviter bruteforce (pbté d'add une whitelist):
-const bouncer = require('express-bouncer')(10000, 600000, 3); //
+const bouncer = require('express-bouncer')(10000, 600000, 3);
 
 //Importation du Controller:
 const userCtrl = require('../controllers/user');
